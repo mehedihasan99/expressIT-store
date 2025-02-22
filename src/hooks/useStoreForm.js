@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { validateForm } from '../utils/validation'
 
 function useStoreForm() {
@@ -54,7 +55,9 @@ function useStoreForm() {
         'https://interview-task-green.vercel.app/task/stores/create',
         { ...formData, domain: formData.domain }
       )
-      alert('Store created successfully!')
+      toast.success('Store created successfully !', {
+        position: 'top-right',
+      })
     } catch (err) {
       setError({ ...error, submit: 'Error creating store. Please try again.' })
     }
