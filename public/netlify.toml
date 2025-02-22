@@ -1,8 +1,11 @@
-// netlify.toml
+[[redirects]]
+  from = "/api/product/*"
+  to = "https://glore-bd-backend-node-mongo.vercel.app/api/product/:splat"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/api/product"
   to = "https://glore-bd-backend-node-mongo.vercel.app/api/product"
   status = 200
   force = true
-
-  
