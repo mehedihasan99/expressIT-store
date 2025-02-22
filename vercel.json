@@ -1,8 +1,14 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/api/product",
-      "destination": "https://glore-bd-backend-node-mongo.vercel.app/api/product"
+      "destination": "https://glore-bd-backend-node-mongo.vercel.app/api/product",
+      "permanent": true
+    },
+    {
+      "source": "/api/product/:slug",
+      "destination": "https://glore-bd-backend-node-mongo.vercel.app/api/product/:slug",
+      "permanent": true
     }
   ]
 }
