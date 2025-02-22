@@ -13,7 +13,7 @@ function useFetchProduct(productId) {
     setError(null)
 
     axios
-      .get(`${import.meta.env.VITE_API_PRODUCT_URL}`)
+      .get(`/api/product`)
       .then((response) => {
         // Ensure data exists and filter by id
         const foundProduct = response.data.data.find((p) => p._id === productId)

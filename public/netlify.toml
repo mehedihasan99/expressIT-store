@@ -1,4 +1,8 @@
-[[ redirects ]]
-from="/"
-to="/index.html"
-status="200"
+// netlify.toml
+[[redirects]]
+  from = "/api/product"
+  to = "https://glore-bd-backend-node-mongo.vercel.app/api/product"
+  status = 200
+  force = true
+
+  

@@ -11,7 +11,7 @@ function useFetchProducts() {
     setLoading(true)
     setError(null)
     axios
-      .get(`${import.meta.env.VITE_API_PRODUCT_URL}`)
+      .get(`/api/product`)
       .then((response) => {
         setProducts(response.data.data)
         setLoading(false)

@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/product",
+      "destination": "https://glore-bd-backend-node-mongo.vercel.app/api/product"
+    }
+  ]
+}
