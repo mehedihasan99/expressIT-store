@@ -1,9 +1,14 @@
+import { useParams } from 'react-router-dom'
 import useFetchProduct from '../../hooks/useFetchProduct'
+import ErrorMessage from '../../ui/ErrorMessage'
 import LoadingSpinner from '../../ui/LoadingSpinner'
 
 export default function ProductDetails() {
-  const product = useFetchProduct()
+  const { productId } = useParams()
+  const { product, error } = useFetchProduct(productId)
+
   if (!product) return <LoadingSpinner />
+  if (error) return <ErrorMessage message={error} />
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex flex-col md:flex-row gap-8 items-center">
