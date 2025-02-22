@@ -1,15 +1,65 @@
-import useStoreForm from '../../hooks/useStoreForm'
+import axios from 'axios'
+import { useState } from 'react'
+import { validateForm } from '../../utils/validation'
 
 const StoreCreation = () => {
-  const {
-    formData,
-    handleChange,
-    checkDomain,
-    handleSubmit,
-    isChecking,
-    isAvailable,
-    error,
-  } = useStoreForm()
+  const [formData, setFormData] = useState({
+    name: '',
+    domain: '',
+    country: 'Bangladesh',
+    category: 'Fashion',
+    currency: 'BDT',
+    email: '',
+  })
+  const [isChecking, setIsChecking] = useState(false)
+  const [isAvailable, setIsAvailable] = useState(null)
+  const [error, setError] = useState({})
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const checkDomain = async () => {
+    if (!formData.domain) {
+      setError({ ...error, domain: 'Please enter a valid domain' })
+      return
+    }
+    setIsChecking(true)
+    setError({ ...error, domain: '' })
+
+    try {
+      const res = await axios.get(
+        `https://interview-task-green.vercel.app/task/domains/check/${formData.domain}.expressitbd.com`
+      )
+      setIsAvailable(res.data)
+    } catch (err) {
+      setError({ ...error, domain: 'Not Available Domain, Re-enter!' })
+    } finally {
+      setIsChecking(false)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!validateForm(formData, setError)) return
+    if (isAvailable === true) {
+      setError({
+        ...error,
+        domain: 'Domain is already taken. Choose another.',
+      })
+      return
+    }
+    try {
+      await axios.post(
+        'https://interview-task-green.vercel.app/task/stores/create',
+        { ...formData, domain: formData.domain }
+      )
+      alert('Store created successfully!')
+    } catch (err) {
+      setError({ ...error, submit: 'Error creating store. Please try again.' })
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
       <div className="bg-white shadow-2x rounded-xl p-8 max-w-2xl w-full lg:w-3/5">
